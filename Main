@@ -1,0 +1,712 @@
+package org.pragra.model;
+
+import java.util.*;
+
+public class Main {
+
+    public List<User> addUser() {
+
+        List<User> userList = new ArrayList<>();
+        char word = 'Y';
+        while (word == 'Y') {
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Enter First Name:");
+            String fName = scan.next();
+
+            System.out.println("Enter Last Name:");
+            String lName = scan.next();
+            userList.add(new User(fName, lName));
+
+            System.out.println("User added successfully!");
+
+            System.out.println("Add one more user?(Y/N)");
+            String input = scan.next();
+            input = input.toUpperCase();
+            word = input.charAt(0);
+        }
+        return userList;
+    }
+
+    public List<User> updateUser(List<User> list) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Do you want to update any User?(Y/N)");
+        String s = sc.next();
+        s = s.toUpperCase();
+        char word = s.charAt(0);
+
+        while (word == 'Y') {
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Please check if user exist or not?");
+
+            System.out.println("Enter First Name:");
+            String fName = scan.next();
+            boolean found = false;
+
+            for (User user : list) {
+                if (user.getFirstName().equals(fName) && !found) {
+                    System.out.println(String.format("Select option: \n1 - Change First Name\n2 - Change Last Name\n"));
+                    int opt = scan.nextInt();
+                    switch (opt) {
+                        case 1:
+                            System.out.println("Enter First Name :");
+                            String updatedFirstName = scan.next();
+                            user.setFirstName(updatedFirstName);
+                            break;
+                        case 2:
+                            System.out.println("Enter Last Name :");
+                            String updatedLastName = scan.next();
+                            user.setLastName(updatedLastName);
+                            break;
+                        default:
+                            break;
+                    }
+                    System.out.println("User Name updated successfully!");
+                    found = true;
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            if (found == false) {
+                System.out.println("No user exist with this name!");
+            }
+            System.out.println("Do you want to update one more User?(Y/N)");
+            String str = scan.next();
+            str = str.toUpperCase();
+            word = str.charAt(0);
+        }
+        return list;
+    }
+
+    public List<User> deleteUser(List<User> list) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Do you want to delete any User?(Y/N)");
+        String str = sc.next();
+        str = str.toUpperCase();
+        char word = str.charAt(0);
+
+        while (word == 'Y') {
+
+            Scanner scan = new Scanner(System.in);
+            System.out.println("please check if User exist or not?");
+            System.out.println("Enter First Name:");
+            String fName = scan.next();
+            boolean found = false;
+
+            for (User user : list) {
+                if (user.getFirstName().equals(fName) && !found) {
+                    list.remove(user);
+                    found = true;
+                    System.out.println("User deleted successfully!");
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            if (found == false) {
+                System.out.println("No user exist with this name!");
+            }
+            System.out.println("Do you want to delete one more user?(Y/N)");
+            String s = scan.next();
+            s = s.toUpperCase();
+            word = s.charAt(0);
+        }
+        return list;
+    }
+
+    public List<Product> addProduct() {
+        List<Product> productList = new ArrayList<>();
+        char word = 'Y';
+
+        while (word == 'Y') {
+        try {
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Enter Product Name:");
+            String pName = scan.next();
+
+            System.out.println("Enter Product Price:");
+            float price = scan.nextFloat();
+
+            System.out.println("Enter Numbers Of Product:");
+            int noOfProduct = scan.nextInt();
+
+            productList.add(new Product(pName, price, noOfProduct));
+            System.out.println("Product added successfully!");
+
+        }catch (InputMismatchException ex){
+            System.out.println("Input type is not as expected!");
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Add more products?(Y/N)");
+        String input = sc.next();
+        input = input.toUpperCase();
+        word = input.charAt(0);
+
+        }
+        return productList;
+    }
+
+    public List<Product> deleteProduct(List<Product> list) {
+
+        Scanner sc = new Scanner((System.in));
+        System.out.println("Do you want to delete any products?(Y/N)");
+        String s = sc.next();
+        s = s.toUpperCase();
+        char word = s.charAt(0);
+
+        while (word == 'Y') {
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Please check if product exist or not?");
+
+            System.out.println("Enter product name:");
+            String pName = scan.next();
+            boolean found = false;
+
+            if(list.size() > 0) {
+                for (Product product : list) {
+                    if (product.getProductName().equals(pName) && !found) {
+                        list.remove(product);
+                        found = true;
+                        System.out.println("Product deleted successfully!");
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+            }else{
+                System.out.println("No products available...");
+            }
+            if (found == false) {
+                System.out.println("No product exist with this name!");
+            }
+            System.out.println("Do you want to delete one more time?(Y/N)");
+            String str = scan.next();
+            str = str.toUpperCase();
+            word = str.charAt(0);
+        }
+        return list;
+    }
+
+    public List<Product> addStock(List<Product> list) {
+     if(list.size() > 0) {
+
+        Scanner sc = new Scanner((System.in));
+        System.out.println("Do you want to add Product Stock?(Y/N)");
+        String str = sc.next();
+        str = str.toUpperCase();
+        char word = str.charAt(0);
+
+        while (word == 'Y') {
+         try {
+             Scanner scan = new Scanner(System.in);
+             System.out.println("Please check product exist or not?");
+
+             System.out.println("Enter product name:");
+             String pName = scan.next();
+             boolean found = false;
+
+             for (Product product : list) {
+                 if (product.getProductName().equals(pName) && !found) {
+
+                     System.out.println("Enter numbers of product:");
+                     int noOfProduct = scan.nextInt();
+
+                     int totalProductCount = product.getProductCount() + noOfProduct;
+                     product.setProductCount(totalProductCount);
+                     System.out.println("Stock added successfully!");
+                     found = true;
+                     break;
+                 } else {
+                     continue;
+                 }
+             }
+             if (found == false) {
+                 System.out.println("No product exist with this name!");
+             }
+         }catch (InputMismatchException ex) {
+             System.out.println("Invalid Input!");
+         }
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Do you want to add one more time?(Y/N)");
+            String s = scanner.next();
+            s = s.toUpperCase();
+            word = s.charAt(0);
+        }
+     }else{
+         System.out.println("No products available..");
+     }
+        return list;
+    }
+    public List<Product> changePrice(List<Product> list) {
+        if(list.size()>0) {
+
+            Scanner sc = new Scanner((System.in));
+            System.out.println("Do you want to change product's price?(Y/N)");
+            String s = sc.next();
+            s = s.toUpperCase();
+            char word = s.charAt(0);
+
+            while (word == 'Y') {
+                try {
+                    Scanner scan = new Scanner(System.in);
+                    System.out.println("Please check if product exist or not?");
+
+                    System.out.println("Enter product name:");
+                    String pName = scan.next();
+                    boolean found = false;
+
+                    for (Product product : list) {
+                        if (product.getProductName().equals(pName) && !found) {
+                            System.out.println("Enter new price:");
+                            float newPrice = scan.nextFloat();
+                            product.setPrice(newPrice);
+                            System.out.println("Price changed successfully!");
+                            found = true;
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+                    if (found == false) {
+                        System.out.println("No product exist with this name!");
+                    }
+                }catch (InputMismatchException ex){
+                    System.out.println("Invalid Input!");
+                }
+                Scanner scanner = new Scanner((System.in));
+                System.out.println("Do you want to change more price?(Y/N)");
+                String str = scanner.next();
+                str = str.toUpperCase();
+                word = str.charAt(0);
+            }
+        }else{
+            System.out.println("No products available...");
+        }
+        return list;
+    }
+
+    public List<Shopping> addToShoppingCart(List<User> userList, List<Product> productList) {
+        List<Shopping> shoppingList = new ArrayList<>();
+
+        if(userList.size()>0 || productList.size()>0) {
+            Scanner sc = new Scanner((System.in));
+            System.out.println("Do you want to buy products?(Y/N)");
+            String s = sc.next();
+            s = s.toUpperCase();
+            char word = s.charAt(0);
+
+            while (word == 'Y') {
+                Scanner scan = new Scanner(System.in);
+                System.out.println("Choose a User To Buy Products:");
+                String fName = scan.next();
+                boolean found = false;
+
+                for (User user : userList) {
+                    if (user.getFirstName().equals(fName)) {
+                        System.out.println("############################## Product List ##############################");
+
+                        for (Product product : productList) {
+                            System.out.println(product.getProductName() + " -> |CAD $| - " + product.getPrice() + " |In Stock| - " + product.getProductCount());
+                        }
+                        System.out.println("###############################################################################");
+
+                        char addProduct = 'Y';
+                        while (addProduct == 'Y') {
+                            try {
+                                boolean flag = false;
+                                Scanner scn = new Scanner(System.in);
+                                System.out.println("Check Product if exist or not?");
+                                String pName = scn.next();
+
+                                for (Product product : productList) {
+                                    if (product.getProductName().equals(pName)) {
+
+                                        System.out.println("Enter product Quantity:");
+                                        int qty = scn.nextInt();
+
+                                        if (qty <= product.getProductCount()) {
+                                          if(qty > 0) {
+                                              shoppingList.add(new Shopping(product.getProductName(), product.getPrice(), product.getProductCount(), qty, user));
+                                              System.out.println("Product added into shopping cart!");
+                                              product.setProductCount(product.getProductCount() - qty);
+                                              break;
+                                          }else {
+                                              System.out.println("Invalid number!");
+                                          }
+                                        } else {
+                                            System.out.println("Sorry! Product is out of stock.");
+                                        }
+                                        flag = true;
+                                    }
+                                }
+                                if (flag == false) {
+                                    System.out.println("No product exist with this name!");
+                                }
+                            } catch (InputMismatchException ex) {
+                                System.out.println("Invalid Input!");
+                            }
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("Do you want to add one more time?(Y/N)");
+                            String str = scanner.next();
+                            str = str.toUpperCase();
+                            addProduct = str.charAt(0);
+                        }
+                        found = true;
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+                if (found == false) {
+                    System.out.println("No user exist with this name!");
+                }
+                System.out.println("Shopping for more Users?(Y/N)");
+                String str = scan.next();
+                str = str.toUpperCase();
+                word = str.charAt(0);
+            }
+        }else{
+            System.out.println("User or Product not available..");
+        }
+        return shoppingList;
+    }
+
+    public List<CheckOut> addCartToCheckOut(List<User> userList, List<Shopping> shoppingList) {
+        List<CheckOut> checkOutList = new ArrayList<>();
+        if(userList.size()>0) {
+            Scanner sc = new Scanner((System.in));
+            System.out.println("Proceed for checkout?(Y/N)");
+            String s = sc.next();
+            s = s.toUpperCase();
+            char word = s.charAt(0);
+
+            if (word == 'Y') {
+                System.out.println("########################### User List ###########################");
+                for (User user : userList) {
+                    System.out.println(" |First Name| - " + user.getFirstName() + " |Last Name| - " + user.getLastName());
+                }
+                System.out.println("#####################################################################");
+                Scanner scan = new Scanner(System.in);
+
+                System.out.println("Select User Name From UserList:");
+                String fName = scan.next();
+
+                boolean innerFlag = false;
+                boolean outerFlag = false;
+
+                for (User user : userList) {
+                    if (user.getFirstName().equals(fName)) {
+                        System.out.println("############################## Your Shopping Cart List ##############################");
+                        if (shoppingList.size() > 0) {
+                            for (Shopping shopping : shoppingList) {
+                                if (user.getFirstName().equals(shopping.getUser().getFirstName())) {
+                                    System.out.println(" |User Name| - " + shopping.getUser().getFirstName() + " |Product| - " + shopping.getProductName() + " |Qty| - " + shopping.getProductQty() + " |CAD $| - " + shopping.getPrice());
+                                    innerFlag = true;
+                                }
+                            }
+                            if (innerFlag == false) {
+                                System.out.println("Oops! Your cart is empty!");
+                            } else {
+                                System.out.println("Are you sure you want to checkout?(Y/N)");
+                                String str = scan.next();
+                                str = str.toUpperCase();
+                                char shop = str.charAt(0);
+
+                                if (shop == 'Y') {
+                                    for (Shopping shopping1 : shoppingList) {
+                                        checkOutList.add(new CheckOut(shopping1.getProductName(), shopping1.getPrice(), shopping1.getProductCount(), shopping1.getProductQty(), user));
+                                    }
+                                    System.out.println("Your order has been placed...Thank you!");
+                                } else {
+                                    System.out.println("Thank you for visiting Us..");
+                                }
+                            }
+                        } else {
+                            System.out.println("No products available in the cart..");
+                        }
+                        outerFlag = true;
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+                if (outerFlag == false) {
+                    System.out.println("User does not exist!");
+                }
+            } else {
+                System.out.println("Okay! Visit next time..");
+            }
+        }else{
+            System.out.println("No user available...");
+        }
+        return checkOutList;
+    }
+    public void addProductToCheckOut(List<User> userList,List<Product> productList, List<CheckOut> checkOutList) {
+        if(userList.size() > 0 && productList.size()>0) {
+
+            Scanner sc = new Scanner((System.in));
+            System.out.println("Do you want to add product into checkout?(Y/N)");
+            String s = sc.next();
+            s = s.toUpperCase();
+            char word = s.charAt(0);
+
+            while (word == 'Y') {
+
+                Scanner scan = new Scanner(System.in);
+
+                System.out.println("########################### User List ###########################");
+                for (User user : userList) {
+                    System.out.println(" |First Name| - " + user.getFirstName() + " |Last Name| - " + user.getLastName());
+                }
+                System.out.println("#####################################################################");
+
+                System.out.println("Select User Name From User List:");
+                String fName = scan.next();
+
+                boolean outerFlag = false;
+                boolean innerFlag = false;
+                try {
+                    for (User user : userList) {
+                        if (user.getFirstName().equals(fName)) {
+
+                            System.out.println("############################## Product List ##############################");
+
+                            for (Product product : productList) {
+                                System.out.println(product.getProductName() + " |CAD $| - " + product.getPrice() + " |In Stock| - " + product.getProductCount());
+                            }
+                            System.out.println("##########################################################################");
+
+                            Scanner scn = new Scanner(System.in);
+                            boolean flag = false;
+
+                            System.out.println("Enter product Name to buy:");
+                            String pName = scn.next();
+
+                            for (Product product : productList) {
+                                if (product.getProductName().equals(pName)) {
+                                    for (CheckOut checkOut : checkOutList) {
+                                        if (checkOut.getProductName().equals(pName)) {
+
+                                            System.out.println("Enter Product Quantity:");
+                                            int qty = scn.nextInt();
+                                         if(qty > 0) {
+                                             int totalQty = checkOut.getProductQty() + qty;
+                                             if (totalQty <= product.getProductCount()) {
+
+                                                 checkOut.setProductQty(totalQty);
+                                                 float newPrice = totalQty * product.getPrice();
+                                                 checkOut.setPrice(newPrice);
+                                                 product.setProductCount(product.getProductCount() - qty);
+                                                 System.out.println("Product added successfully!");
+                                             } else {
+                                                 System.out.println("Sorry! Product is out of stock");
+                                             }
+                                         }else{
+                                             System.out.println("Invalid number!");
+                                         }
+                                            flag = true;
+                                            break;
+                                        }
+                                    }
+                                    if (flag == false) {
+                                        System.out.println("Enter Product Quantity:");
+                                        int qty = scn.nextInt();
+
+                                        if(qty>0) {
+                                            if (qty <= product.getProductCount()) {
+                                                float productTotalPrice = qty * product.getPrice();
+                                                checkOutList.add(new CheckOut(pName, productTotalPrice, product.getProductCount(), qty, user));
+                                                product.setProductCount(product.getProductCount() - qty);
+                                                System.out.println("Product added successfully!");
+                                            } else {
+                                                System.out.println("Sorry! Product is out of stock");
+                                            }
+                                        }else {
+                                            System.out.println("Invalid number!");
+                                        }
+                                    }
+                                    innerFlag = true;
+                                    break;
+                                }
+                            }
+                            if (innerFlag == false) {
+                                System.out.println("No product exist with this name!");
+                            }
+                            outerFlag = true;
+                            break;
+                        }
+                    }
+                    if (outerFlag == false) {
+                        System.out.println("User name does not exist! Please try again..");
+                    }
+                } catch (InputMismatchException ex) {
+                    System.out.println("Invalid Input!");
+                }
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Do you want to add one more time?(Y/N)");
+                String str = scanner.next();
+                str = str.toUpperCase();
+                word = str.charAt(0);
+            }
+        }else{
+            System.out.println("User or Product not available.. ");
+        }
+    }
+    public void removeProductFromCheckOut(List<Product> productList, List<CheckOut> checkOutList) {
+     if(checkOutList.size()>0) {
+         Scanner sc = new Scanner((System.in));
+         System.out.println("Do you want to remove product from checkout?(Y/N)");
+         String s = sc.next();
+         s = s.toUpperCase();
+         char word = s.charAt(0);
+
+         while (word == 'Y') {
+             Scanner scan = new Scanner(System.in);
+             System.out.println("############################## CheckOut List ##############################");
+
+             for (CheckOut checkOut : checkOutList) {
+                 System.out.println(checkOut.getUser().getFirstName() + " |Product| - " + checkOut.getProductName() + " |CAD $| - " + checkOut.getPrice() + " |Qty| - " + checkOut.getProductQty());
+             }
+             System.out.println("###############################################################################");
+
+             boolean flag = false;
+             System.out.println("Enter product Name to remove:");
+             String pName = scan.next();
+
+             for (Product product : productList) {
+                 if (product.getProductName().equals(pName)) {
+                     for (CheckOut checkOut : checkOutList) {
+                         if (checkOut.getProductName().equals(pName)) {
+                             checkOutList.remove(checkOut);
+                             product.setProductCount(product.getProductCount() + checkOut.getProductQty());
+                             System.out.println("Product has been removed successfully..");
+                             flag = true;
+                             break;
+                         }
+                     }
+                     break;
+                 }
+             }
+             if (flag == false) {
+                 System.out.println("No product exist with this name!");
+             }
+             System.out.println("Do you want to remove one more product?(Y/N)");
+             String str = scan.next();
+             str = str.toUpperCase();
+             word = str.charAt(0);
+         }
+     }else{
+         System.out.println("No products available into check out list..");
+         }
+    }
+    /***********************************Main Method******************************************/
+    public static void main(String[] args) {
+        Main main = new Main();
+        List<User> userList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
+        List<Shopping> shoppingList = new ArrayList<>();
+        List<CheckOut> checkOutList = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& --User Module-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
+        System.out.println("######################### Add User ############################");
+        userList = main.addUser();
+
+        System.out.println("######################### Update User ###########################");
+        userList = main.updateUser(userList);
+
+        System.out.println("########################## Delete User ###############################");
+        userList = main.deleteUser(userList);
+
+
+        System.out.println("******************************* Users List ***********************************");
+        for (User user : userList) {
+            System.out.println(" |First Name| - " + user.getFirstName() + " |Last Name| - " + user.getLastName());
+        }
+        System.out.println("**********************************************************");
+
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&& --PRODUCT Module-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
+        System.out.println("########################## Add Product ################################");
+        productList = main.addProduct();
+
+        System.out.println("########################## Remove Product ############################");
+        productList = main.deleteProduct(productList);
+
+        System.out.println("########################## Add Stock #################################");
+        productList = main.addStock(productList);
+
+        System.out.println("########################## Change Price ###############################");
+        productList = main.changePrice(productList);
+
+        System.out.println("*********************** Product List **************************");
+        for (Product product : productList) {
+            System.out.println(product.getProductName() + " -> |CAD $| - " + product.getPrice() + " |QTY| - " + product.getProductCount());
+        }
+        System.out.println("********************************************************************");
+
+        System.out.println("&&&&&&&&&&&&&&&& --Shopping Cart Module-- &&&&&&&&&&&&&&&&&&&");
+
+        System.out.println("########################### User List ###########################");
+        for (User user : userList) {
+            System.out.println(" |First Name| - " + user.getFirstName() + " |Last Name| - " + user.getLastName());
+        }
+        shoppingList = main.addToShoppingCart(userList, productList);
+
+        System.out.println("*********************** Shopping Cart List ****************************");
+        if (shoppingList.size() > 0) {
+            for (Shopping shopping : shoppingList) {
+                float productTotalPrice = (shopping.getProductQty()) * (shopping.getPrice());
+                shopping.setPrice(productTotalPrice);
+                System.out.println(" |User Name| - " + shopping.getUser().getFirstName() + " |Product| - " + shopping.getProductName() + " |Qty| - " + shopping.getProductQty() + " |CAD $| - " + shopping.getPrice());
+            }
+        System.out.println("************************************************************************");
+        }
+
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&& --CheckOut Module-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
+        checkOutList = main.addCartToCheckOut(userList, shoppingList);
+        main.addProductToCheckOut(userList,productList, checkOutList);
+        main.removeProductFromCheckOut(productList,checkOutList);
+
+        List<Float> priceList = new ArrayList<>();
+        String uName = "";
+        float totalPriceWithoutTax = 0.0F;
+
+        if (checkOutList.size() > 0) {
+
+            for (CheckOut ck : checkOutList) {
+                priceList.add(ck.getPrice());
+                uName = ck.getUser().getFirstName();
+            }
+            for (int i = 0; i < priceList.size(); i++) {
+                totalPriceWithoutTax = totalPriceWithoutTax + priceList.get(i);
+            }
+
+
+            System.out.println("************************** Check Out Receipt **************************");
+
+            //Using lambda Sorting the list
+            checkOutList.sort((CheckOut c1,CheckOut c2)->c1.getProductName().compareTo(c2.getProductName()));
+
+            System.out.println("Customer Name :" + uName);
+
+            checkOutList.forEach((ck)->
+                System.out.println("|Product| - " + ck.getProductName()+ " |Qty| - " + ck.getProductQty() + " |CAD $| - " + ck.getPrice()));
+
+            String totalAmt = String.format("%.2f",totalPriceWithoutTax);
+            System.out.println("Total Amt |CAD $| :" + totalAmt);
+
+            float tax = totalPriceWithoutTax * 0.13F;
+            String strFloatTax = String.format("%.2f", tax);
+            System.out.println("Total Tax :" + strFloatTax);
+
+            String strTotalAmt = String.format("%.2f",(totalPriceWithoutTax + tax));
+            System.out.println("Total Amount with tax($) :" + strTotalAmt);
+        }
+            System.out.println("**************************** Thank You ********************************");
+    }
+}
