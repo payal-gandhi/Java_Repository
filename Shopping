@@ -1,0 +1,33 @@
+package org.pragra.model;
+
+import java.util.List;
+
+public class Shopping extends Product {
+    private User user;
+    private int productQty;
+
+    public Shopping(String productName, float price, int productCount, int productQty,User user) {
+        super(productName, price, productCount);
+        this.user = user;
+        this.productQty = productQty;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public void setProductQty(int productQty) {
+        this.productQty = productQty;
+    }
+    public int getProductQty() {
+        return productQty;
+    }
+    @Override
+    public String toString() {
+        return "Shopping{" +
+                "user=" + user +
+                ", productQty=" + productQty +
+                '}';
+    }
+}
