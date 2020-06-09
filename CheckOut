@@ -1,0 +1,9 @@
+package org.pragra.model;
+
+public class CheckOut extends Shopping {
+
+    public CheckOut(String productName, float price, int productCount, int productQty, User user) {
+        super(productName, price, productCount, productQty, user);
+    }
+
+}
